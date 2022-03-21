@@ -1,4 +1,4 @@
-# ligo_tutorial_fundadvisor
+# ligo lambdas & on-chain views
 
 This repository is meant to illustrate the communication between contracts (with on-chain views) and lambda pattern which allows to modify a contract already deployed. It deals with implementing, deploying and interacting with Tezos smart contracts.
 
