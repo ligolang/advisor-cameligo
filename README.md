@@ -20,11 +20,7 @@ The resulting advice is stored in the storage (in `result` field).
 
 Since Hangzhou protocol, on-chain views have been introduced which replaces the callbacks pattern to retrieve a storage of another contract.
 
-The `views_hangzhou` directory illustrates the on-chain views pattern.
-
-The `v2` directory illustrates the on-chain views pattern where the advisor contract requests many "indice_value" of multiple indice contracts.
-
-![](Indices&advisor.png)
+This directory illustrates the on-chain views pattern where the advisor contract requests a "indice_value" from one indice contract.
 
 ### Lambda pattern
 
@@ -35,18 +31,10 @@ So an entrypoint `ChangeAlgorithm` is provided to modify the algorithm that comp
 
 ## Content
 
-The `src` directory illustrates the old-style callback pattern and contains 3 implementations:
-- cameligo: for smart contracts implementation in cameligo and `ligo` command lines for simulating all entrypoints
-- jsligo: for smart contracts implementation in JSligo and `ligo` command lines for simulating all entrypoints
-- pascaligo: for smart contracts implementation in pascaligo and `ligo` command lines for simulating all entrypoints
-
-The `views_hangzhou` directory illustrates the new on-chain views style and contains 2 implementations:
+This directory illustrates the new on-chain views style and contains 2 implementations:
 - cameligo: for smart contracts implementation in cameligo and `ligo` command lines for simulating all entrypoints
 - jsligo: for smart contracts implementation in JSligo and `ligo` command lines for simulating all entrypoints
 
-The `v2` directory illustrates an advisor interacting with multiple indices. This directory contains 2 implementations:
-- cameligo: for smart contracts implementation in cameligo and `ligo` command lines for simulating all entrypoints
-- jsligo: for smart contracts implementation in JSligo and `ligo` command lines for simulating all entrypoints
 
 ## Pre-requisites
 
