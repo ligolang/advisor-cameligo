@@ -1,6 +1,6 @@
 # ligo_tutorial_fundadvisor
 
-This repository is meant to illustrate the communication between contracts (with `get_entrypoint_opt` LIGO function) and lambda pattern which allows to modify a contract already deployed. It deals with implementing, deploying and interacting with Tezos smart contracts.
+This repository is meant to illustrate the communication between contracts (with on-chain views) and lambda pattern which allows to modify a contract already deployed. It deals with implementing, deploying and interacting with Tezos smart contracts.
 
 
 ## The Fund and its advisor (i.e. "L'indice et le conseiller")
