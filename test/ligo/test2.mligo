@@ -6,7 +6,7 @@ let assert_string_failure (res : test_exec_result) (expected : string) : unit =
   match res with
   | Fail (Rejected (actual,_)) -> assert (Test.michelson_equal actual expected)
   | Fail (Other) -> failwith "contract failed for an unknown reason"
-  | Success -> failwith "bad price check"
+  | Success (n) -> failwith "bad price check"
 
 // ========== DEPLOY CONTRACT HELPER ============
 let originate_from_file (type s p) (file_path: string) (mainName : string) (views: string list) (storage: michelson_program) : address * (p,s) typed_address * p contract =
@@ -32,14 +32,14 @@ let test =
 
   // INDICE Increment(1)
   let () = Test.log("call Increment entrypoint of DUMMY smart contract") in
-  let () = Test.transfer_to_contract_exn indice_contract (Increment(1)) 0mutez in
+  let _increment_gaz = Test.transfer_to_contract_exn indice_contract (Increment(1)) 0mutez in
   let inc_actual_storage = Test.get_storage indice_taddress in
   let () = Test.log(inc_actual_storage) in
   let () = assert(inc_actual_storage = indice_initial_storage + 1) in
 
   // INDICE Decrement(2)
   let () = Test.log("call Decrement entrypoint of DUMMY smart contract") in
-  let () = Test.transfer_to_contract_exn indice_contract (Decrement(2)) 0mutez in
+  let _decrement_gaz = Test.transfer_to_contract_exn indice_contract (Decrement(2)) 0mutez in
   let dec_actual_storage = Test.get_storage indice_taddress in
   let () = Test.log(dec_actual_storage) in
   let () = assert(dec_actual_storage = inc_actual_storage - 2) in

@@ -24,14 +24,14 @@ let _test =
 
   // INDICE Increment(1)
   let () = Test.log("call Increment entrypoint of INDICE smart contract") in
-  let () = Test.transfer_to_contract_exn indice_contract (Increment(1)) 0mutez in
+  let _increment_gaz = Test.transfer_to_contract_exn indice_contract (Increment(1)) 0mutez in
   let inc_actual_storage = Test.get_storage indice_taddress in
   let () = Test.log(inc_actual_storage) in
   let () = assert(inc_actual_storage = indice_initial_storage + 1) in
 
   // INDICE Decrement(2)
   let () = Test.log("call Decrement entrypoint of INDICE smart contract") in
-  let () = Test.transfer_to_contract_exn indice_contract (Decrement(2)) 0mutez in
+  let _decrement_gaz = Test.transfer_to_contract_exn indice_contract (Decrement(2)) 0mutez in
   let dec_actual_storage = Test.get_storage indice_taddress in
   let () = Test.log(dec_actual_storage) in
   let () = assert(dec_actual_storage = inc_actual_storage - 2) in
@@ -49,7 +49,7 @@ let _test =
 
   // ADVISOR call ExecuteAlgorithm
   let () = Test.log("call ExecuteAlgorithm entrypoint of ADVISOR smart contract") in
-  let () = Test.transfer_to_contract_exn advisor_contract (ExecuteAlgorithm(unit)) 0mutez in
+  let _execalgo_gaz = Test.transfer_to_contract_exn advisor_contract (ExecuteAlgorithm(unit)) 0mutez in
   let advisor_modified_storage = Test.get_storage advisor_taddress in
   let () = Test.log(advisor_modified_storage) in
   let () = assert(advisor_modified_storage.result = True) in
@@ -57,13 +57,13 @@ let _test =
   // ADVISOR call ChangeAlgorithm
   let () = Test.log("call ChangeAlgorithm entrypoint of ADVISOR smart contract") in
   let new_algo : int -> bool = (fun(i : int) -> if i < 3 then True else False) in
-  let () = Test.transfer_to_contract_exn advisor_contract (ChangeAlgorithm(new_algo)) 0mutez in
+  let _changealgo_gaz = Test.transfer_to_contract_exn advisor_contract (ChangeAlgorithm(new_algo)) 0mutez in
   let advisor_modified_storage2 = Test.get_storage advisor_taddress in
   //let () = Test.log(advisor_modified_storage2.algorithm) in
 
   // ADVISOR call ExecuteAlgorithm
   let () = Test.log("call ExecuteAlgorithm entrypoint of ADVISOR smart contract") in
-  let () = Test.transfer_to_contract_exn advisor_contract (ExecuteAlgorithm(unit)) 0mutez in
+  let _execalgo_gaz_2 = Test.transfer_to_contract_exn advisor_contract (ExecuteAlgorithm(unit)) 0mutez in
   let advisor_modified_storage3 = Test.get_storage advisor_taddress in
   let () = Test.log(advisor_modified_storage3) in
   assert(advisor_modified_storage3.result = False)
