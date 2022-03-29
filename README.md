@@ -42,4 +42,14 @@ You may need to install the following tools:
 - node & npm
 - typescript compiler - `npm install typescript --save-dev`
 - docker
-- pytezos
+
+## Compiling / testing / deploying
+
+This repository provides a Makefile for compiling and testing smart contracts. One can type `make` to display all available rules. 
+The `make all` command will clean all produced smart contracts, then compile smart contracts and then launch tests.
+
+The `make compile` command triggers the compilation of smart contracts (advisor and indice).
+
+The `make test` command launches tests oon compiled smart contracts (advisor and indice).
+
+The `make deploy` command deploys smart contracts (depending on .env file information).
