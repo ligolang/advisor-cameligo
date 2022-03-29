@@ -42,9 +42,9 @@ advisor.json: contracts/advisor/main.mligo
 
 clean:
 	@echo "Removing Michelson files"
-	@rm compiled/*.tz compiled/*.json
+	@rm -f compiled/*.tz compiled/*.json
 
-test: test_ligo test_ligo_2 test_pytezos
+test: test_ligo test_ligo_2
 
 test_ligo: test/ligo/test.mligo 
 	@echo "Running integration tests"
@@ -53,18 +53,6 @@ test_ligo: test/ligo/test.mligo
 test_ligo_2: test/ligo/test2.mligo 
 	@echo "Running integration tests (fail)"
 	@$(ligo_compiler) run test $^ $(PROTOCOL_OPT)
-
-test_pytezos: test_pytezos_sandbox test_pytezos_indice test_pytezos_advisor 
-
-test_pytezos_indice: 
-	@echo "Running unit tests (in pytezos) for Indice smart contract"
-	@cd $(CURDIR)/test/pytezos/ && python3 -m unittest test_indice.py -v
-test_pytezos_advisor: 
-	@echo "Running unit tests (in pytezos) for Advisor smart contract"
-	@cd $(CURDIR)/test/pytezos/ && python3 -m unittest test_advisor.py -v
-test_pytezos_sandbox: 
-	@echo "Running integration tests (in pytezos)"
-	@cd $(CURDIR)/test/pytezos/ && python3 -m unittest test_sandbox.py -v
 
 deploy: node_modules deploy.js
 	@echo "Deploying contracts"
