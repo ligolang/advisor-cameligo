@@ -4,9 +4,10 @@
 let assert_string_failure (res : test_exec_result) (expected : string) : unit =
   let expected = Test.eval expected in
   match res with
-  | Fail (Rejected (actual,_)) -> assert (Test.michelson_equal actual expected)
-  | Fail (Other) -> failwith "contract failed for an unknown reason"
-  | Success (n) -> failwith "bad price check"
+  | Fail (Rejected (actual, _)) -> assert (Test.michelson_equal actual expected)
+  | Fail (Balance_too_low err) -> failwith "contract failed: balance too low"
+  | Fail (Other s) -> failwith s
+  | Success n -> failwith "has not failed"
 
 // ========== DEPLOY CONTRACT HELPER ============
 let originate_from_file (type s p) (file_path: string) (mainName : string) (views: string list) (storage: michelson_program) : address * (p,s) typed_address * p contract =
