@@ -8,19 +8,16 @@ This repository is meant to illustrate the communication between contracts (with
 The `indice` contract represents a fund value and the `advisor` contract gives an advice on investing on this fund. 
 
 
-### Transaction workflow (callbacks)
+### Transaction workflow
 
-The `advisor` contract can be invoked to request the fund value to the `indice` contract (via a transaction). The `indice` contract receives the request (transaction) and sends back the requested value. When `advisor` contract receives the fund value it can apply the "algorithm" to check it is worth investing ! This algorithm relies on a single indice value.
+Since Hangzhou protocol, on-chain views have been introduced which replace the callback pattern to retrieve a storage of another contract.
+
+The `advisor` contract can be invoked to request the fund value from the `indice` contract (via an on-chain view). The `indice` contract receives the view request and sends back the requested value. When `advisor` contract receives the fund value it can apply the "algorithm" to check it is worth investing ! This algorithm relies on a single indice value.
 
 ![](indice&advisor.png)
 
 The resulting advice is stored in the storage (in `result` field).
 
-### Transaction workflow (on-chain views introduced by Hangzhou)
-
-Since Hangzhou protocol, on-chain views have been introduced which replaces the callbacks pattern to retrieve a storage of another contract.
-
-This directory illustrates the on-chain views pattern where the advisor contract requests a "indice_value" from one indice contract.
 
 ### Lambda pattern
 
