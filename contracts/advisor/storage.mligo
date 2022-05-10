@@ -6,6 +6,7 @@ module Types = struct
         indiceAddress : address;
         algorithm : Algo.Types.t;
         result : bool;
+        metadata: (string, bytes) big_map;
     }
 end
 

@@ -38,7 +38,12 @@ let _test =
 
   // deploy ADVISOR contract 
   let () = Test.log("deploy ADVISOR smart contract") in
-  let advisor_initial_storage : ADVISOR.storage = {indiceAddress=address_indice; algorithm=(fun(i : int) -> if i < 10 then True else False); result=False} in
+  let advisor_initial_storage : ADVISOR.storage = {
+    indiceAddress=address_indice; 
+    algorithm=(fun(i : int) -> if i < 10 then True else False); 
+    result=False;
+    metadata=(Big_map.empty: (string, bytes) big_map);
+  } in
   let ais = Test.run (fun (x:ADVISOR.storage) -> x) advisor_initial_storage in
   //let advisor_contract_path = "advisor.mligo" in //"views_hangzhou/cameligo/advisor.mligo" in
   //let (address_advisor, code_advisor, _) = Test.originate_from_file advisor_contract_path "advisorMain" ([] : string list) ais 0tez in
