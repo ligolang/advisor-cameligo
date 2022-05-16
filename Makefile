@@ -25,18 +25,22 @@ indice: indice.tz indice.json
 advisor: advisor.tz advisor.json
 
 indice.tz: contracts/indice/main.mligo
+	@mkdir -p compiled
 	@echo "Compiling Indice smart contract to Michelson"
 	@$(ligo_compiler) compile contract $^ -e indiceMain $(PROTOCOL_OPT) > compiled/$@
 
 indice.json: contracts/indice/main.mligo
+	@mkdir -p compiled
 	@echo "Compiling Indice smart contract to Michelson in JSON format"
 	@$(ligo_compiler) compile contract $^ $(JSON_OPT) -e indiceMain $(PROTOCOL_OPT) > compiled/$@
 
 advisor.tz: contracts/advisor/main.mligo
+	@mkdir -p compiled
 	@echo "Compiling Advisor smart contract to Michelson"
 	@$(ligo_compiler) compile contract $^ -e advisorMain $(PROTOCOL_OPT) > compiled/$@
 
 advisor.json: contracts/advisor/main.mligo
+	@mkdir -p compiled
 	@echo "Compiling Advisor smart contract to Michelson in JSON format"
 	@$(ligo_compiler) compile contract $^ $(JSON_OPT) -e advisorMain $(PROTOCOL_OPT) > compiled/$@
 
