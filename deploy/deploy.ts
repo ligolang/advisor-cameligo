@@ -3,6 +3,8 @@ import { TezosToolkit, MichelsonMap } from '@taquito/taquito';
 import advisor from '../compiled/advisor.json';
 import indice from '../compiled/indice.json';
 import * as dotenv from 'dotenv'
+import { buf2hex } from "@taquito/utils";
+import metadata from "./metadata.json";
 
 dotenv.config(({path:__dirname+'/.env'}))
 
@@ -26,6 +28,10 @@ async function orig() {
     let indice_store = indice_initial_value
 
     let advisor_store = {
+        metadata: MichelsonMap.fromLiteral({
+            "": buf2hex(Buffer.from("tezos-storage:contents")),
+            contents: buf2hex(Buffer.from(JSON.stringify(metadata))),
+        }),
         'indiceAddress' : indice_address,
         'algorithm' : JSON.parse(lambda_algorithm),
         'result' : advisor_initial_result
@@ -54,13 +60,10 @@ async function orig() {
         await advisor_originated.confirmation(2);
         console.log('confirmed ADVISOR: ', advisor_originated.contractAddress);
         advisor_address = advisor_originated.contractAddress;
-       
-        console.log("./tezos-client remember contract INDICE", indice_address)
-        console.log("./tezos-client remember contract ADVISOR", advisor_address)
-        console.log("tezos-client transfer 0 from ", admin, " to ", advisor_address, " --entrypoint \"executeAlgorithm\" --arg \"Unit\"")
 
     } catch (error: any) {
         console.log(error)
+        return process.exit(1)
     }
 }
 

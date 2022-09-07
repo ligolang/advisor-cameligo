@@ -1,0 +1,19 @@
+{
+    "name": "Advisor Example",
+    "description": "This repository is meant to illustrate the communication between contracts (with on-chain views) and lambda pattern which allows to modify a contract already deployed. It deals with implementing, deploying and interacting with Tezos smart contracts.",
+    "version": "1.0.0",
+    "license": {
+        "name": "MIT"
+    },
+    "authors": [
+        "smart-chain <tezos@smart-chain.fr>"
+    ],
+    "homepage": "https://github.com/ligolang/advisor-cameligo",
+    "source": {
+        "tools": "cameligo",
+        "location": "https://github.com/ligolang/advisor-cameligo"
+    },
+    "interfaces": [
+        "TZIP-016"
+    ]
+}
