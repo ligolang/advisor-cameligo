@@ -3,7 +3,7 @@
 
 // ========== DEPLOY CONTRACT HELPER ============
 let originate_from_file (type s p) (file_path: string) (mainName : string) (views: string list) (storage: michelson_program) : address * (p,s) typed_address * p contract =
-    let (address_contract, code_contract, _) = Test.originate_from_file file_path mainName views storage 0tez in
+    let (address_contract, _code_contract, _) = Test.originate_from_file file_path mainName views storage 0tez in
     let taddress_contract = (Test.cast_address address_contract : (p, s) typed_address) in
     address_contract, taddress_contract, Test.to_contract taddress_contract
 
@@ -14,7 +14,7 @@ let _test =
   let iis = Test.run (fun (x:INDICE.storage) -> x) indice_initial_storage in
   let (address_indice, indice_taddress, indice_contract) : address * (INDICE.parameter, INDICE.storage) typed_address * INDICE.parameter contract = 
     originate_from_file "contracts/indice/main.mligo" "indiceMain" (["indice_value"] : string list) iis in
-  let actual_storage = Test.get_storage_of_address address_indice in
+  let _actual_storage = Test.get_storage_of_address address_indice in
 
   // INDICE Increment(1)
   let () = Test.log("call Increment entrypoint of INDICE smart contract") in
@@ -39,7 +39,7 @@ let _test =
     metadata=(Big_map.empty: (string, bytes) big_map);
   } in
   let ais = Test.run (fun (x:ADVISOR.storage) -> x) advisor_initial_storage in
-  let (address_advisor, advisor_taddress, advisor_contract) : address * (ADVISOR.parameter, ADVISOR.storage) typed_address * ADVISOR.parameter contract = 
+  let (_address_advisor, advisor_taddress, advisor_contract) : address * (ADVISOR.parameter, ADVISOR.storage) typed_address * ADVISOR.parameter contract = 
     originate_from_file "contracts/advisor/main.mligo" "advisorMain" ([] : string list) ais in
 
   // ADVISOR call ExecuteAlgorithm
@@ -53,7 +53,7 @@ let _test =
   let () = Test.log("call ChangeAlgorithm entrypoint of ADVISOR smart contract") in
   let new_algo : int -> bool = (fun(i : int) -> if i < 3 then True else False) in
   let _changealgo_gaz = Test.transfer_to_contract_exn advisor_contract (ChangeAlgorithm(new_algo)) 0mutez in
-  let advisor_modified_storage2 = Test.get_storage advisor_taddress in
+  let _advisor_modified_storage2 = Test.get_storage advisor_taddress in
 
   // ADVISOR call ExecuteAlgorithm
   let () = Test.log("call ExecuteAlgorithm entrypoint of ADVISOR smart contract") in
