@@ -1,4 +1,6 @@
-ligo_compiler=docker run --rm -v "$$PWD":"$$PWD" -w "$$PWD" ligolang/ligo:stable
+ligo_compiler=docker run --rm -v "$(PWD)":"$(PWD)" -w "$(PWD)" ligolang/ligo:stable
+# ^ Override this variable when you run make command by make <COMMAND> ligo_compiler=<LIGO_EXECUTABLE>
+# ^ Otherwise use default one (you'll need docker)
 PROTOCOL_OPT=
 JSON_OPT=--michelson-format json
 tsc=npx tsc
@@ -50,11 +52,11 @@ clean:
 
 test: test_ligo test_ligo_2
 
-test_ligo: test/ligo/test.mligo 
+test_ligo: test/ligo/test.mligo
 	@echo "Running integration tests"
 	@$(ligo_compiler) run test $^ $(PROTOCOL_OPT)
 
-test_ligo_2: test/ligo/test2.mligo 
+test_ligo_2: test/ligo/test2.mligo
 	@echo "Running integration tests (fail)"
 	@$(ligo_compiler) run test $^ $(PROTOCOL_OPT)
 
@@ -62,7 +64,7 @@ deploy: node_modules deploy.js
 	@echo "Deploying contracts"
 	@node deploy/deploy.js
 
-deploy.js: 
+deploy.js:
 	@if [ ! -f ./deploy/metadata.json ]; then cp deploy/metadata.json.dist deploy/metadata.json ; fi
 	@cd deploy && $(tsc) deploy.ts --resolveJsonModule -esModuleInterop
 
@@ -76,7 +78,7 @@ dry-run_advisor: advisor.mligo
 #	@echo $(simulateline)
 	$(ligo_compiler) compile parameter contracts/advisor/main.mligo 'ExecuteAlgorithm(unit)' -e advisorMain $(PROTOCOL_OPT)
 	$(ligo_compiler) compile parameter contracts/advisor/main.mligo 'ChangeAlgorithm(fun(i : int) -> False)' -e advisorMain $(PROTOCOL_OPT)
-	$(ligo_compiler) run dry-run contracts/advisor/main.mligo  'ExecuteAlgorithm(unit)' '{indiceAddress=("KT1D99kSAsGuLNmT1CAZWx51vgvJpzSQuoZn" : address); algorithm=(fun(i : int) -> if i < 10 then True else False); result=False}' -e advisorMain $(PROTOCOL_OPT) 
+	$(ligo_compiler) run dry-run contracts/advisor/main.mligo  'ExecuteAlgorithm(unit)' '{indiceAddress=("KT1D99kSAsGuLNmT1CAZWx51vgvJpzSQuoZn" : address); algorithm=(fun(i : int) -> if i < 10 then True else False); result=False}' -e advisorMain $(PROTOCOL_OPT)
 	$(ligo_compiler) run dry-run contracts/advisor/main.mligo  'ChangeAlgorithm(fun(i : int) -> False)' '{indiceAddress=("KT1D99kSAsGuLNmT1CAZWx51vgvJpzSQuoZn" : address); algorithm=(fun(i : int) -> if i < 10 then True else False); result=False}' -e advisorMain $(PROTOCOL_OPT)
 
 dry-run_indice: indice.mligo
