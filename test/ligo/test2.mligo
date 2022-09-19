@@ -5,13 +5,13 @@ let assert_string_failure (res : test_exec_result) (expected : string) : unit =
   let expected = Test.eval expected in
   match res with
   | Fail (Rejected (actual, _)) -> assert (Test.michelson_equal actual expected)
-  | Fail (Balance_too_low err) -> failwith "contract failed: balance too low"
+  | Fail (Balance_too_low _) -> failwith "contract failed: balance too low"
   | Fail (Other s) -> failwith s
-  | Success n -> failwith "has not failed"
+  | Success _ -> failwith "has not failed"
 
 // ========== DEPLOY CONTRACT HELPER ============
 let originate_from_file (type s p) (file_path: string) (mainName : string) (views: string list) (storage: michelson_program) : address * (p,s) typed_address * p contract =
-    let (address_contract, code_contract, _) = Test.originate_from_file file_path mainName views storage 0tez in
+    let (address_contract, _code_contract, _) = Test.originate_from_file file_path mainName views storage 0tez in
     let taddress_contract = (Test.cast_address address_contract : (p, s) typed_address) in
     address_contract, taddress_contract, Test.to_contract taddress_contract
 
@@ -24,7 +24,7 @@ let test =
   let iis = Test.run (fun (x:DUMMY.indiceStorage) -> x) indice_initial_storage in
   let (address_indice, indice_taddress, indice_contract) : address * (DUMMY.indiceEntrypoints, DUMMY.indiceStorage) typed_address * DUMMY.indiceEntrypoints contract = 
     originate_from_file "test/ligo/indice_no_view.mligo" "indiceMain" ([] : string list) iis in
-  let actual_storage = Test.get_storage_of_address address_indice in
+  let _actual_storage = Test.get_storage_of_address address_indice in
 
   // INDICE Increment(1)
   let () = Test.log("call Increment entrypoint of DUMMY smart contract") in
@@ -50,7 +50,7 @@ let test =
   } in
   // transpile storage in michelson code
   let ais = Test.run (fun (x:ADVISOR.storage) -> x) advisor_initial_storage in
-  let (address_advisor, advisor_taddress, advisor_contract) : address * (ADVISOR.parameter, ADVISOR.storage) typed_address * ADVISOR.parameter contract = 
+  let (_address_advisor, advisor_taddress, advisor_contract) : address * (ADVISOR.parameter, ADVISOR.storage) typed_address * ADVISOR.parameter contract = 
     originate_from_file "contracts/advisor/main.mligo" "advisorMain" ([] : string list) ais in
 
   // ADVISOR call ExecuteAlgorithm
