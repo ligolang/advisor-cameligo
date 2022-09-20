@@ -13,7 +13,7 @@ let _test =
   let () = Test.log("deploy INDICE smart contract") in
   let iis = Test.run (fun (x:INDICE.storage) -> x) indice_initial_storage in
   let (address_indice, indice_taddress, indice_contract) : address * (INDICE.parameter, INDICE.storage) typed_address * INDICE.parameter contract = 
-    originate_from_file "contracts/indice/main.mligo" "indiceMain" (["indice_value"] : string list) iis in
+    originate_from_file "../../contracts/indice/main.mligo" "indiceMain" (["indice_value"] : string list) iis in
   let _actual_storage = Test.get_storage_of_address address_indice in
 
   // INDICE Increment(1)
@@ -40,7 +40,7 @@ let _test =
   } in
   let ais = Test.run (fun (x:ADVISOR.storage) -> x) advisor_initial_storage in
   let (_address_advisor, advisor_taddress, advisor_contract) : address * (ADVISOR.parameter, ADVISOR.storage) typed_address * ADVISOR.parameter contract = 
-    originate_from_file "contracts/advisor/main.mligo" "advisorMain" ([] : string list) ais in
+    originate_from_file "../../contracts/advisor/main.mligo" "advisorMain" ([] : string list) ais in
 
   // ADVISOR call ExecuteAlgorithm
   let () = Test.log("call ExecuteAlgorithm entrypoint of ADVISOR smart contract") in
