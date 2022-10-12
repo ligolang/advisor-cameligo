@@ -2,7 +2,7 @@ ligo_compiler?=docker run --rm -v "$(PWD)":"$(PWD)" -w "$(PWD)" ligolang/ligo:st
 # ^ Override this variable when you run make command by make <COMMAND> ligo_compiler=<LIGO_EXECUTABLE>
 # ^ Otherwise use default one (you'll need docker)
 protocol_opt?=
-JSON_OPT?=--michelson-format json
+json_opt?=--michelson-format json
 tsc=npx tsc
 help:
 	@echo  'Usage:'
@@ -34,7 +34,7 @@ indice.tz: contracts/indice/main.mligo
 indice.json: contracts/indice/main.mligo
 	@mkdir -p compiled
 	@echo "Compiling Indice smart contract to Michelson in JSON format"
-	@$(ligo_compiler) compile contract $^ $(JSON_OPT) -e indiceMain $(protocol_opt) > compiled/$@
+	@$(ligo_compiler) compile contract $^ $(json_opt) -e indiceMain $(protocol_opt) > compiled/$@
 
 advisor.tz: contracts/advisor/main.mligo
 	@mkdir -p compiled
@@ -44,7 +44,7 @@ advisor.tz: contracts/advisor/main.mligo
 advisor.json: contracts/advisor/main.mligo
 	@mkdir -p compiled
 	@echo "Compiling Advisor smart contract to Michelson in JSON format"
-	@$(ligo_compiler) compile contract $^ $(JSON_OPT) -e advisorMain $(protocol_opt) > compiled/$@
+	@$(ligo_compiler) compile contract $^ $(json_opt) -e advisorMain $(protocol_opt) > compiled/$@
 
 clean:
 	@echo "Removing Michelson files"
