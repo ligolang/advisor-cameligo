@@ -2,11 +2,9 @@
 
 This repository is meant to illustrate the communication between contracts (with on-chain views) and lambda pattern which allows to modify a contract already deployed. It deals with implementing, deploying and interacting with Tezos smart contracts.
 
-
 ## The Fund and its advisor (i.e. "L'indice et le conseiller")
 
 The `indice` contract represents a fund value and the `advisor` contract gives an advice on investing on this fund.
-
 
 ### Transaction workflow
 
@@ -14,10 +12,9 @@ Since Hangzhou protocol, on-chain views have been introduced which replace the c
 
 The `advisor` contract can be invoked to request the fund value from the `indice` contract (via an on-chain view). The `indice` contract receives the view request and sends back the requested value. When `advisor` contract receives the fund value it can apply the "algorithm" to check it is worth investing ! This algorithm relies on a single indice value.
 
-![](indice&advisor.png)
+![](assets/indice&advisor.png)
 
 The resulting advice is stored in the storage (in `result` field).
-
 
 ### Lambda pattern
 
@@ -25,33 +22,33 @@ The real business logic of the `advisor` smart contract lies in the lambda funct
 
 So an entrypoint `ChangeAlgorithm` is provided to modify the algorithm that computes the worth of investment.
 
-
 ## Content
 
 This directory illustrates the new on-chain views style and contains 2 implementations:
+
 - cameligo: for smart contracts implementation in cameligo and `ligo` command lines for simulating all entrypoints
 - jsligo: for smart contracts implementation in JSligo and `ligo` command lines for simulating all entrypoints
 
-
 ## Pre-requisites
 
-You may need to install the following tools:
-- node & npm
-- typescript compiler - `npm install typescript --save-dev`
-- docker
+You need to install the following tools:
+
+- [NodeJS & Npm](https://nodejs.org/en/download/)
+- [LIGO](https://ligolang.org/docs/intro/installation/) **or** [Docker](https://docs.docker.com/get-docker/)
 
 ## Compiling / testing / deploying
 
 This repository provides a Makefile for compiling and testing smart contracts. One can type `make` to display all available rules.
 The `make all` command will clean all produced smart contracts, then compile smart contracts and then launch tests.
 
-The `make compile` command triggers the compilation of smart contracts (advisor and indice).
+- The `make compile` command triggers the compilation of smart contracts (advisor and indice).
 
-The `make test` command launches tests oon compiled smart contracts (advisor and indice).
+- The `make test` command launches tests oon compiled smart contracts (advisor and indice).
 
-The `make deploy` command deploys smart contracts (depending on .env file information).
+- The `make deploy` command deploys smart contracts. You need to rename `deploy/.env.example` to `deploy/.env` and **fill the required variables**.
 
 You can also override `make` parameters by running :
+
 ```sh
 make compile ligo_compiler=<LIGO_EXECUTABLE> protocol_opt="--protocol <PROTOCOL>"
 ```
