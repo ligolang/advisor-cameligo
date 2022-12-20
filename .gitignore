@@ -6,4 +6,4 @@ _esy/
 **/compiled
 /deploy/metadata.json
 /deploy/deploy.js
-deploy/.env
+**/.env

@@ -45,7 +45,7 @@ The `make all` command will clean all produced smart contracts, then compile sma
 
 - The `make test` command launches tests oon compiled smart contracts (advisor and indice).
 
-- The `make deploy` command deploys smart contracts. You need to rename `deploy/.env.example` to `deploy/.env` and **fill the required variables**.
+- The `make deploy` command deploys smart contracts. You need to rename `deploy/.env.dist` to `deploy/.env` and **fill the required variables**.
 
 You can also override `make` parameters by running :
 

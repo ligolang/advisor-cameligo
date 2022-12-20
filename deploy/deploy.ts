@@ -41,6 +41,17 @@ const makeSpinnerOperation = async <T>(
   return result;
 };
 
+if (!pk && !rpcUrl) {
+  console.log(
+    chalk.redBright`Couldn't find env variables. Have you renamed ` +
+      chalk.red.bold.underline`deploy/.env.dist` +
+      chalk.redBright` to ` +
+      chalk.red.bold.underline(`deploy/.env`)
+  );
+
+  process.exit(-1);
+}
+
 if (!pk) {
   missingEnvVarLog("PK");
   process.exit(-1);
