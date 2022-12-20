@@ -66,7 +66,7 @@ deploy: node_modules deploy.js
 
 deploy.js:
 	@if [ ! -f ./deploy/metadata.json ]; then cp deploy/metadata.json.dist deploy/metadata.json ; fi
-	@cd deploy && $(tsc) deploy.ts --resolveJsonModule -esModuleInterop
+	@cd deploy && npm run transpile
 
 node_modules:
 	@echo "Installing deploy script dependencies"
