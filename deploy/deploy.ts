@@ -13,7 +13,7 @@ dotenv.config({ path: __dirname + "/.env" });
 const rpcUrl = process.env.RPC_URL;
 const pk = process.env.PK || undefined;
 
-const missingEnvVarLog = (name) =>
+const missingEnvVarLog = (name: string) =>
   console.log(
     chalk.redBright`Missing ` +
       chalk.red.bold.underline(name) +
@@ -147,7 +147,8 @@ async function deploy() {
     console.log("");
     console.log(chalk.redBright`Error during deployment:`);
     console.log(error);
-    return process.exit(1);
+
+    process.exit(1);
   }
 }
 

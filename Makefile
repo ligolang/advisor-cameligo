@@ -61,12 +61,11 @@ test_ligo_2: test/ligo/test2.mligo
 	@$(ligo_compiler) run test $^ $(protocol_opt)
 
 deploy: node_modules deploy.js
-	@echo "Running deploy script\n"
-	@node deploy/deploy.js
 
 deploy.js:
 	@if [ ! -f ./deploy/metadata.json ]; then cp deploy/metadata.json.dist deploy/metadata.json ; fi
-	@cd deploy && npm run transpile
+	@echo "Running deploy script\n"
+	@cd deploy && npm start
 
 node_modules:
 	@echo "Installing deploy script dependencies"
