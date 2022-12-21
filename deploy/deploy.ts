@@ -143,6 +143,14 @@ async function deploy() {
         chalk.yellow.bold(advisor_originated.contractAddress),
       endMessage: chalk.green`ADVISOR confirmed!`,
     });
+
+    console.log(
+      chalk.green`\nContracts addresses:\n` +
+        chalk.green`- INDICE: ` +
+        chalk.green.underline`${indice_address}\n` +
+        chalk.green`- ADVISOR: ` +
+        chalk.green.underline`${advisor_originated.contractAddress}\n`
+    );
   } catch (error: any) {
     console.log("");
     console.log(chalk.redBright`Error during deployment:`);
