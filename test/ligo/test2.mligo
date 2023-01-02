@@ -1,4 +1,4 @@
-#import "../../contracts/advisor/main.mligo" "ADVISOR"
+#import "../../src/advisor/main.mligo" "ADVISOR"
 #import "indice_no_view.mligo" "DUMMY"
 
 let assert_string_failure (res : test_exec_result) (expected : string) : unit =
@@ -51,7 +51,7 @@ let test =
   // transpile storage in michelson code
   let ais = Test.run (fun (x:ADVISOR.storage) -> x) advisor_initial_storage in
   let (_address_advisor, advisor_taddress, advisor_contract) : address * (ADVISOR.parameter, ADVISOR.storage) typed_address * ADVISOR.parameter contract = 
-    originate_from_file "../../contracts/advisor/main.mligo" "advisorMain" ([] : string list) ais in
+    originate_from_file "../../src/advisor/main.mligo" "advisorMain" ([] : string list) ais in
 
   // ADVISOR call ExecuteAlgorithm
   let () = Test.log("call ExecuteAlgorithm entrypoint of ADVISOR smart contract (should fail because DUMMY has no view)") in
