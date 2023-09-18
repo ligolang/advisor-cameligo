@@ -29,12 +29,12 @@ advisor: advisor.tz advisor.json
 indice.tz: src/indice/main.mligo
 	@mkdir -p compiled
 	@echo "Compiling Indice smart contract to Michelson"
-	@$(ligo_compiler) compile contract $^ -e indiceMain $(protocol_opt) > compiled/$@
+	@$(ligo_compiler) compile contract $^ $(protocol_opt) > compiled/$@
 
 indice.json: src/indice/main.mligo
 	@mkdir -p compiled
 	@echo "Compiling Indice smart contract to Michelson in JSON format"
-	@$(ligo_compiler) compile contract $^ $(JSON_OPT) -e indiceMain $(protocol_opt) > compiled/$@
+	@$(ligo_compiler) compile contract $^ $(JSON_OPT) $(protocol_opt) > compiled/$@
 
 advisor.tz: src/advisor/main.mligo
 	@mkdir -p compiled
@@ -82,7 +82,7 @@ dry-run_advisor: advisor.mligo
 	$(ligo_compiler) run dry-run src/advisor/main.mligo  'ChangeAlgorithm(fun(i : int) -> False)' '{indiceAddress=("KT1D99kSAsGuLNmT1CAZWx51vgvJpzSQuoZn" : address); algorithm=(fun(i : int) -> if i < 10 then True else False); result=False}' -e advisorMain $(protocol_opt)
 
 dry-run_indice: indice.mligo
-	$(ligo_compiler) compile parameter indice.mligo 'Increment(5)' -e indiceMain $(protocol_opt)
-	$(ligo_compiler) compile parameter indice.mligo 'Decrement(5)' -e indiceMain $(protocol_opt)
-	$(ligo_compiler) run dry-run indice.mligo  'Increment(5)' '37' -e indiceMain $(protocol_opt)
-	$(ligo_compiler) run dry-run indice.mligo  'Decrement(5)' '37' -e indiceMain $(protocol_opt)
+	$(ligo_compiler) compile parameter indice.mligo 'Increment(5)' $(protocol_opt)
+	$(ligo_compiler) compile parameter indice.mligo 'Decrement(5)' $(protocol_opt)
+	$(ligo_compiler) run dry-run indice.mligo  'Increment(5)' '37' $(protocol_opt)
+	$(ligo_compiler) run dry-run indice.mligo  'Decrement(5)' '37' $(protocol_opt)
