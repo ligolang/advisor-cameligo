@@ -39,12 +39,12 @@ indice.json: src/indice/main.mligo
 advisor.tz: src/advisor/main.mligo
 	@mkdir -p compiled
 	@echo "Compiling Advisor smart contract to Michelson"
-	@$(ligo_compiler) compile contract $^ -e advisorMain $(protocol_opt) > compiled/$@
+	@$(ligo_compiler) compile contract $^ $(protocol_opt) > compiled/$@
 
 advisor.json: src/advisor/main.mligo
 	@mkdir -p compiled
 	@echo "Compiling Advisor smart contract to Michelson in JSON format"
-	@$(ligo_compiler) compile contract $^ $(JSON_OPT) -e advisorMain $(protocol_opt) > compiled/$@
+	@$(ligo_compiler) compile contract $^ $(JSON_OPT) $(protocol_opt) > compiled/$@
 
 clean:
 	@echo "Removing Michelson files"

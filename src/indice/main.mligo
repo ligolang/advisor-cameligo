@@ -16,9 +16,11 @@ let increment(param, store : int * storage) : return =
 let decrement(param, store : int * storage) : return = 
     (([]: operation list), store - param)
 
-let indiceMain(ep, store : parameter * storage) : return =
+[@entry]
+let indiceMain (ep : parameter) (store : storage) : return =
     match ep with 
     | Increment(p) -> increment(p, store)
     | Decrement(p) -> decrement(p, store)
 
-[@view] let indice_value(_params, store: unit * storage): int = store
+[@view] 
+let indice_value (_params : unit) (store: storage) : int = store
